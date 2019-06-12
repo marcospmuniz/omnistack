@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
 
+global.gConfig = require('./config/global.json');
+
 const app = express();
 
 // as 2 linhas abaixo configura a aplica para ouvir tando HTTP quanto WEBSOCKET na const server
@@ -10,7 +12,7 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server); // permite receber e enviar requisições para todos os usuário conectadods da aplicação através de websocket
 
 // Conexão ao banco de dados que criei no mongo Atlas
-mongoose.connect('mongodb+srv://marcosUser:O1k0fUruMQuab9kL@cluster0-r7c14.mongodb.net/test?retryWrites=true&w=majority', {
+mongoose.connect(global.gConfig.db.mongo.connectionString, {
     useNewUrlParser: true,
 });
 
